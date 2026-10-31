@@ -813,6 +813,12 @@ html[data-theme="dark"] .ios-guide-tip{background:#12382f;border-color:#245b4c;c
   #tenantTable tbody td .actions button{min-height:32px}
 }
 
+
+/* TEST COPY: public registered-user counter */
+.public-user-counter{display:flex;align-items:center;gap:13px;width:max-content;max-width:100%;margin:15px 0 4px;padding:11px 15px;border:1px solid #ffffff35;border-radius:14px;background:#ffffff13;backdrop-filter:blur(10px);box-shadow:0 8px 24px #001b2c20}
+.public-user-counter-icon{width:38px;height:38px;flex:0 0 38px;border-radius:12px;display:grid;place-items:center;background:#ffffff20;font-size:19px}
+.public-user-counter-copy{display:flex;flex-direction:column;gap:1px}.public-user-counter-copy span{font-size:10px;font-weight:800;letter-spacing:.8px;color:#cde8f0;text-transform:uppercase}.public-user-counter-copy strong{font-size:23px;line-height:1.15;color:#fff;font-variant-numeric:tabular-nums}.public-user-counter-copy small{font-size:10px;color:#cde8f0}
+@media(max-width:600px){.public-user-counter{margin:12px 0 2px;padding:9px 12px}.public-user-counter-icon{width:34px;height:34px;flex-basis:34px}.public-user-counter-copy strong{font-size:21px}}
 </style>
 
 
@@ -852,6 +858,10 @@ html[data-theme="dark"] .ios-guide-tip{background:#12382f;border-color:#245b4c;c
    <p>RentFlow helps you manage tenants, properties, rent payments, and bills — all in one simple system. Perfect for homeowners, apartment owners, and rental property managers.</p>
    <div class="landing-benefits">
     <div><b>24/7</b><span>Online access</span></div><div><b>All-in-one</b><span>Rental records</span></div><div><b>Cloud</b><span>Data storage</span></div>
+   </div>
+   <div class="public-user-counter" id="publicUserCounter" aria-live="polite" aria-label="Total registered RentFlow users">
+    <div class="public-user-counter-icon" aria-hidden="true">👥</div>
+    <div class="public-user-counter-copy"><span>Total registered users</span><strong id="publicRegisteredCount">—</strong><small>RentFlow community</small></div>
    </div>
    <div class="landing-cta-row landing-trial-callout"><div class="landing-cta-note"><b>Start your 7-day free trial</b><span>No credit card required. Select Login Menu to create your account.</span></div></div>
   </div>
@@ -945,7 +955,7 @@ html[data-theme="dark"] .ios-guide-tip{background:#12382f;border-color:#245b4c;c
    <div class="auth-tabs"><button type="button" id="loginTab" class="auth-tab active" onclick="switchAuth('login')">Login</button><button type="button" id="registerTab" class="auth-tab" onclick="switchAuth('register')">Create account</button></div>
    <div class="auth-appearance"><label for="authThemeMode">Appearance</label><select id="authThemeMode" onchange="setThemeMode(this.value)"><option value="light">☀️ Light</option><option value="dark">🌙 Dark</option></select></div>
    <div id="loginPanel"><form id="loginForm"><div class="field"><label>Email address</label><input name="email" type="email" required autocomplete="username"></div><div class="field"><label>Password</label><input name="password" type="password" required autocomplete="current-password"></div><button class="wide">Login to RentFlow</button></form><div class="auth-switch muted">New to RentFlow? <span class="link" onclick="switchAuth('register')">Create an account</span></div></div>
-   <div id="registerPanel" class="hidden"><form id="registerForm"><div class="field"><label>Your full name</label><input name="name" required maxlength="100"></div><div class="field"><label>Business / property name</label><input name="business" required maxlength="120"></div><div class="field"><label>Email address</label><input name="email" type="email" required autocomplete="email"></div><div class="field"><label>Password (at least 8 characters)</label><input name="password" type="password" required minlength="8" autocomplete="new-password"></div><button class="wide">Register free account</button></form><div class="auth-switch muted">Already registered? <span class="link" onclick="switchAuth('login')">Login</span></div></div>
+   <div id="registerPanel" class="hidden"><div class="register-community-count" style="display:flex;align-items:center;gap:10px;padding:10px 12px;margin:0 0 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface, #f7faff)"><span aria-hidden="true">👥</span><span style="font-size:12px;color:var(--muted)">RentFlow registered users</span><strong id="registerPublicCount" style="margin-left:auto;font-size:18px">—</strong></div><form id="registerForm"><div class="field"><label>Your full name</label><input name="name" required maxlength="100"></div><div class="field"><label>Business / property name</label><input name="business" required maxlength="120"></div><div class="field"><label>Email address</label><input name="email" type="email" required autocomplete="email"></div><div class="field"><label>Password (at least 8 characters)</label><input name="password" type="password" required minlength="8" autocomplete="new-password"></div><button class="wide">Register account</button></form><div class="auth-switch muted">Already registered? <span class="link" onclick="switchAuth('login')">Login</span></div></div>
    <p id="authError" class="muted" style="color:#b93d4b;margin-top:14px"></p>
   </div>
  </div>
@@ -1064,6 +1074,22 @@ async function api(action,data={}){
  if(!r.ok||!j.ok)throw Error(j.error||`Request failed (HTTP ${r.status})`);
  return j;
 }
+async function loadPublicRegistrationCount(){
+ const el=document.getElementById('publicRegisteredCount');
+ const registerEl=document.getElementById('registerPublicCount');
+ if(!el&&!registerEl)return;
+ try{
+  const result=await api('publicRegistrationCount');
+  const count=Number(result.totalRegistered);
+  if(!Number.isFinite(count)||count<0)throw new Error('Invalid registration count');
+  if(el)el.textContent=count.toLocaleString();
+  if(registerEl)registerEl.textContent=count.toLocaleString();
+ }catch(error){
+  console.warn('[RentFlow] Public registration counter unavailable:',error);
+  if(el)el.textContent='—';
+  if(registerEl)registerEl.textContent='—';
+ }
+}
 $('loginForm').onsubmit=async e=>{e.preventDefault();let f=Object.fromEntries(new FormData(e.target)),done=buttonBusy(e.submitter,'Signing in...');$('authError').textContent='';try{let r=await api('login',f);token=r.token;sessionStorage.setItem('rf_token',token);await enterApp()}catch(x){$('authError').textContent=x.message}finally{done()}};
 $('registerForm').onsubmit=async e=>{e.preventDefault();let f=Object.fromEntries(new FormData(e.target)),done=buttonBusy(e.submitter,'Creating account...');$('authError').textContent='';try{let r=await api('register',f);token=r.token;sessionStorage.setItem('rf_token',token);await enterApp()}catch(x){$('authError').textContent=x.message}finally{done()}};
 async function enterApp(){try{let r=await api('me');me=r.user;applyTheme();updateSettingsLicense(r.license);closeAuthMenu();if(r.license?.state!=='trial'&&r.license?.state!=='active'){showLicenseGate(r.license);return}$('licenseGate').classList.add('hidden');$('auth').classList.add('hidden');$('app').classList.remove('hidden');$('businessName').textContent=me.business||'RentFlow';$('userName').textContent=me.name;$('userAvatar').textContent=(me.name||'U').slice(0,1).toUpperCase();$('setBusiness').value=me.business||'';$('setPhone').value=me.phone||'';$('setAddress').value=me.address||'';$('setEmail').value=me.email||'';updateLicenseBadge(r.license);await loadAll()}catch(e){logout(false);if(e.message.includes('another device'))toast(e.message)}}
@@ -1108,6 +1134,7 @@ function openForm(type,old={}){let title={tenant:'Tenant',property:'Property / U
 function editRecord(type,id){let col={tenant:'tenants',property:'properties',bill:'bills',payment:'payments',ad:'ads'}[type],x=records[col].find(a=>a.id===id);if(x)openForm(type,x)}
 async function removeRecord(collection,id,btn){if(!confirm('Delete this record?'))return;let done=buttonBusy(btn,'Deleting...');try{await api('delete',{collection,id});await loadAll();toast('Record deleted')}catch(e){toast(e.message)}finally{done()}}
 async function saveProfile(){let done=buttonBusy($('profileSaveBtn'),'Saving profile...');try{let r=await api('profile',{business:$('setBusiness').value,phone:$('setPhone').value,address:$('setAddress').value});me=r.user;$('businessName').textContent=me.business;toast('Business profile updated')}catch(e){toast(e.message)}finally{done()}}
+loadPublicRegistrationCount();
 applyTheme();(async()=>{if(token)await enterApp()})();
 </script><script>
 
