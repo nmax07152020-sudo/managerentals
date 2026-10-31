@@ -623,6 +623,108 @@ html, body {
   .feature-icon { width: 32px !important; height: 32px !important; flex-basis: 32px !important; }
 }
 
+
+/* V2.9: final visibility, branding and adaptive Login Menu corrections */
+#auth.landing.hidden {
+  display: none !important;
+}
+
+/* Keep the public landing page scrollable only while it is visible. */
+#auth.landing:not(.hidden) {
+  display: flex !important;
+  flex-direction: column !important;
+  height: auto !important;
+  min-height: 100vh !important;
+  min-height: 100svh !important;
+  overflow: visible !important;
+}
+
+/* Brand mark and wordmark scale smoothly with the available viewport. */
+.landing-top {
+  min-height: clamp(54px, 7vw, 72px) !important;
+  height: auto !important;
+  padding: 8px clamp(12px, 3.5vw, 42px) !important;
+  gap: 12px !important;
+}
+.landing-brand {
+  min-width: 0;
+  gap: clamp(7px, 1.4vw, 12px) !important;
+  font-size: clamp(18px, 2.2vw, 25px) !important;
+  line-height: 1.1 !important;
+}
+.landing-mark {
+  width: clamp(34px, 4.4vw, 46px) !important;
+  height: clamp(34px, 4.4vw, 46px) !important;
+  flex: 0 0 auto !important;
+  border-radius: clamp(10px, 1.4vw, 14px) !important;
+}
+.landing-mark svg {
+  width: 68% !important;
+  height: 68% !important;
+}
+
+/* Compact, fluid Login Menu button; no oversized fixed dimensions. */
+.login-menu-btn {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex: 0 1 auto !important;
+  padding: clamp(7px, 1vw, 10px) clamp(9px, 1.5vw, 15px) !important;
+  gap: clamp(5px, .8vw, 8px) !important;
+  border-radius: clamp(9px, 1.2vw, 12px) !important;
+  font-size: clamp(10px, 1.15vw, 13px) !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+}
+.login-menu-btn span {
+  font-size: clamp(13px, 1.5vw, 16px) !important;
+  line-height: 1 !important;
+}
+
+/* The account dialog stays centered and independently scrollable. */
+.auth-gate {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1000 !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  align-items: center !important;
+  justify-items: center !important;
+  padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom)) !important;
+}
+.auth-gate-card {
+  width: min(440px, 100%) !important;
+  max-height: calc(100dvh - 24px) !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  margin: auto !important;
+  padding: clamp(16px, 3vw, 24px) !important;
+}
+@media (max-width: 600px) {
+  .landing-top {
+    min-height: 54px !important;
+    padding: 7px 10px !important;
+  }
+  .landing-brand {
+    font-size: clamp(16px, 4.5vw, 20px) !important;
+  }
+  .landing-mark {
+    width: clamp(31px, 9vw, 38px) !important;
+    height: clamp(31px, 9vw, 38px) !important;
+  }
+  .login-menu-btn {
+    padding: 7px 9px !important;
+    font-size: clamp(9px, 2.8vw, 11px) !important;
+    gap: 5px !important;
+  }
+  .login-menu-btn span {
+    font-size: 13px !important;
+  }
+}
+@media (max-width: 360px) {
+  .landing-brand { font-size: 15px !important; }
+  .login-menu-btn { padding: 6px 7px !important; font-size: 9px !important; }
+}
+
 </style>
 </head>
 <body>
