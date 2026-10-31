@@ -372,6 +372,28 @@ html,body{height:100%;overflow:hidden}
  .phone-bottom{font-size:8px;padding:4px 0}
 }
 
+
+/* V2.5: colorful feature artwork and CTA cleanup */
+.landing-trial-callout{margin-top:24px;padding:0;background:none}
+.landing-trial-callout .landing-cta-note{padding-left:0}
+.landing-trial-callout .landing-cta-note b{font-size:18px;color:#fff}
+.landing-trial-callout .landing-cta-note span{font-size:13px;color:#d9f1ff}
+.landing-feature{gap:16px;padding:12px 18px}
+.feature-icon{width:78px;height:78px;flex:0 0 78px;border-radius:22px;padding:0;background:transparent;border:0;box-shadow:0 8px 24px #001a4c55;overflow:hidden}
+.feature-icon svg{width:100%;height:100%;display:block;filter:drop-shadow(0 4px 7px #001a4c40)}
+.landing-features{border-radius:24px;background:linear-gradient(110deg,#087bdcaa,#0452a6a8 55%,#087f9eaa);border:1px solid #36c9ff;box-shadow:0 10px 35px #001e4d55,inset 0 1px 0 #ffffff55}
+.landing-feature{border-right-color:#39bfff66}
+.landing-feature b{font-size:clamp(14px,1.2vw,18px);font-weight:850}
+.landing-feature span:not(.feature-icon){font-size:clamp(11px,.95vw,14px);line-height:1.45;color:#e0f2ff}
+@media(max-width:760px){
+ .landing-trial-callout{margin-top:10px}
+ .landing-trial-callout .landing-cta-note b{font-size:12px}
+ .landing-trial-callout .landing-cta-note span{font-size:9px}
+ .landing-feature{padding:6px 3px;gap:3px}
+ .feature-icon{width:clamp(27px,6vw,43px);height:clamp(27px,6vw,43px);flex-basis:clamp(27px,6vw,43px);border-radius:12px;margin:0 auto 4px}
+ .landing-feature b{font-size:7px}
+}
+
 </style>
 </head>
 <body>
@@ -388,7 +410,7 @@ html,body{height:100%;overflow:hidden}
    <div class="landing-benefits">
     <div><b>24/7</b><span>Online access</span></div><div><b>All-in-one</b><span>Rental records</span></div><div><b>Cloud</b><span>Data storage</span></div>
    </div>
-   <div class="landing-cta-row"><button class="landing-cta" onclick="openAuthMenu('register')">Get Started <span>→</span></button><div class="landing-cta-note"><b>Start your 7-day free trial</b><span>No credit card required.</span></div></div>
+   <div class="landing-cta-row landing-trial-callout"><div class="landing-cta-note"><b>Start your 7-day free trial</b><span>No credit card required. Select Login Menu to create your account.</span></div></div>
   </div>
   <div class="landing-preview-wrap">
    <div class="preview-caption"><span class="preview-live"></span> RENTFLOW WORKSPACE PREVIEW</div>
@@ -432,11 +454,11 @@ html,body{height:100%;overflow:hidden}
  </main>
  <section class="landing-extra" aria-label="RentFlow information">
   <div class="landing-features">
-   <div class="landing-feature"><span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 20c.4-4 2.4-6 6-6s5.6 2 6 6H6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><div><b>Tenant Management</b><span>Keep track of tenants and their units.</span></div></div>
-   <div class="landing-feature"><span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10h-6v-6H9v6H3V10Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><div><b>Property Management</b><span>Manage properties and rental units.</span></div></div>
-   <div class="landing-feature"><span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><div><b>Bills &amp; Payments</b><span>Record bills, payments and history.</span></div></div>
-   <div class="landing-feature"><span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V4M4 20h17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="7" y="12" width="3" height="6" rx="1" fill="currentColor"/><rect x="12" y="8" width="3" height="10" rx="1" fill="currentColor"/><rect x="17" y="5" width="3" height="13" rx="1" fill="currentColor"/></svg></span><div><b>Reports &amp; Analytics</b><span>View income, occupancy and reports.</span></div></div>
-   <div class="landing-feature"><span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m5 16 5-5 3 3 3-4 3 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Ads / Listings</b><span>Post available units for rent.</span></div></div>
+   <div class="landing-feature"><span class="feature-icon"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="tenantG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#20d7ff"/><stop offset=".55" stop-color="#3678ff"/><stop offset="1" stop-color="#8a45ff"/></linearGradient></defs><circle cx="32" cy="32" r="29" fill="url(#tenantG)"/><circle cx="32" cy="23" r="9" fill="#fff"/><circle cx="14" cy="29" r="6.5" fill="#c9f7ff"/><circle cx="50" cy="29" r="6.5" fill="#c9f7ff"/><path d="M15 49c1-9 7-14 17-14s16 5 17 14c-8 6-26 6-34 0Z" fill="#fff"/><path d="M4 48c.5-6 4-10 10-11 3 0 5 1 7 3-3 3-5 7-5 11-5 0-9-1-12-3Zm56 0c-.5-6-4-10-10-11-3 0-5 1-7 3 3 3 5 7 5 11 5 0 9-1 12-3Z" fill="#c9f7ff"/></svg></span><div><b>Tenant Management</b><span>Keep track of tenants and their units.</span></div></div>
+   <div class="landing-feature"><span class="feature-icon"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="homeG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00d9ff"/><stop offset=".55" stop-color="#00a8a8"/><stop offset="1" stop-color="#00d58b"/></linearGradient></defs><circle cx="32" cy="32" r="29" fill="url(#homeG)"/><path d="m9 29 23-19 23 19-4 5-19-15-19 15Z" fill="#fff"/><path d="M16 30 32 17l16 13v22H16Z" fill="#f5ffff"/><path d="M27 52V35h10v17" fill="#1684d7"/><rect x="20" y="33" width="5" height="6" rx="1" fill="#7ee8df"/><rect x="39" y="33" width="5" height="6" rx="1" fill="#7ee8df"/></svg></span><div><b>Property Management</b><span>Manage properties and rental units.</span></div></div>
+   <div class="landing-feature"><span class="feature-icon"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="billG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b99aff"/><stop offset="1" stop-color="#6545e8"/></linearGradient></defs><circle cx="32" cy="32" r="29" fill="url(#billG)"/><path d="M17 10h24l9 9v34H17Z" fill="#fff"/><path d="M41 10v10h9" fill="#d9d0ff"/><path d="M24 28h18M24 36h18M24 44h11" stroke="#5598e8" stroke-width="4" stroke-linecap="round"/><circle cx="47" cy="47" r="12" fill="#ffb12b" stroke="#fff" stroke-width="2"/><path d="M47 39v16m4-12c-1-3-7-3-8 0-1 4 8 3 8 7 0 4-7 5-9 1" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></span><div><b>Bills &amp; Payments</b><span>Record bills, payments and history.</span></div></div>
+   <div class="landing-feature"><span class="feature-icon"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="chartG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1bdcff"/><stop offset="1" stop-color="#0879d9"/></linearGradient></defs><circle cx="32" cy="32" r="29" fill="url(#chartG)"/><rect x="12" y="37" width="10" height="15" rx="3" fill="#45e5a2"/><rect x="27" y="27" width="10" height="25" rx="3" fill="#8df05e"/><rect x="42" y="17" width="10" height="35" rx="3" fill="#ffbd37"/><path d="m13 29 13-9 10 4 15-13" fill="none" stroke="#a9ffcf" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="m43 11 9-1-1 9" fill="none" stroke="#a9ffcf" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Reports &amp; Analytics</b><span>View income, occupancy and reports.</span></div></div>
+   <div class="landing-feature"><span class="feature-icon"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="adsG" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffd84b"/><stop offset=".55" stop-color="#ff9b31"/><stop offset="1" stop-color="#ff4c72"/></linearGradient></defs><circle cx="32" cy="32" r="29" fill="url(#adsG)"/><path d="M14 27h11l21-11v32L25 37H14Z" fill="#fff"/><path d="M23 38 29 53h-8l-6-15Z" fill="#ffe7f0"/><path d="M49 24q8 8 0 16M53 17q13 15 0 30" fill="none" stroke="#fff4b0" stroke-width="4" stroke-linecap="round"/><circle cx="12" cy="18" r="3" fill="#fff4b0"/><circle cx="54" cy="49" r="2.5" fill="#fff4b0"/></svg></span><div><b>Ads / Listings</b><span>Post available units for rent.</span></div></div>
   </div>
   <div class="landing-info">
    <article class="landing-info-card">
