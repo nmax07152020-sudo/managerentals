@@ -851,7 +851,6 @@ html[data-theme="dark"] .ios-guide-tip{background:#12382f;border-color:#245b4c;c
      <div class="preview-nav">⌂ <span>Properties &amp; Units</span></div>
      <div class="preview-nav">▤ <span>Bills</span></div>
      <div class="preview-nav">₱ <span>Payments</span></div>
-     <div class="preview-nav">▣ <span>Rental Ads</span></div>
      <div class="preview-nav">⚙ <span>Settings &amp; Theme</span></div>
     </div>
     <div class="preview-content">
@@ -936,10 +935,9 @@ html[data-theme="dark"] .ios-guide-tip{background:#12382f;border-color:#245b4c;c
 </section>
 <section id="app" class="shell hidden">
  <header class="topbar"><div class="top-left"><button class="hamb" onclick="toggleMenu()">☰</button><div class="brand"><div class="logo"><img src="/icons/rentflow-icon-192.png" alt="RentFlow logo"></div><span class="top-brand" id="businessName">RentFlow</span></div></div><div class="user-pill"><div class="avatar" id="userAvatar">U</div><span class="user-name" id="userName">User</span><span class="license-badge" id="licenseStatusBadge">7-day trial</span><button class="secondary" onclick="logout()">Logout</button></div></header>
- <div class="layout" id="layout"><aside><div class="nav-title">WORKSPACE</div><nav class="nav" id="nav"><button class="active" data-page="dashboard"><span class="ico">▦</span>Dashboard</button><button data-page="tenants"><span class="ico">♙</span>Tenants</button><button data-page="properties"><span class="ico">⌂</span>Properties & Units</button><button data-page="bills"><span class="ico">▤</span>Bills</button><button data-page="payments"><span class="ico">₱</span>Payments</button><button data-page="ads"><span class="ico">▣</span>Rental Ads</button></nav><div class="nav-title">ACCOUNT</div><nav class="nav"><button data-page="settings"><span class="ico">⚙</span>Settings & Theme</button></nav></aside>
+ <div class="layout" id="layout"><aside><div class="nav-title">WORKSPACE</div><nav class="nav" id="nav"><button class="active" data-page="dashboard"><span class="ico">▦</span>Dashboard</button><button data-page="tenants"><span class="ico">♙</span>Tenants</button><button data-page="properties"><span class="ico">⌂</span>Properties & Units</button><button data-page="bills"><span class="ico">▤</span>Bills</button><button data-page="payments"><span class="ico">₱</span>Payments</button></nav><div class="nav-title">ACCOUNT</div><nav class="nav"><button data-page="settings"><span class="ico">⚙</span>Settings & Theme</button></nav></aside>
  <main class="content">
   <section id="page-dashboard" class="page"><div class="pagehead"><div><h1>Dashboard</h1><div class="muted">Your rental business at a glance</div></div><button onclick="openForm('payment')">＋ Record payment</button></div>
-   <div class="ad-hero"><div><div class="ad-tag">YOUR RENTAL BUSINESS, ORGANIZED</div><h2>More control over every unit.</h2><p>Track tenants, billing and collections in one place.</p><button onclick="showPage('ads')">Manage rental ads →</button></div><div class="ad-visual">🏡</div></div>
    <div class="grid section"><div class="card stat"><small>Total tenants</small><strong id="sTenants">0</strong><div class="hint">Active tenant records</div></div><div class="card stat"><small>Properties / units</small><strong id="sUnits">0</strong><div class="hint">Your rental inventory</div></div><div class="card stat"><small>Payments this month</small><strong id="sPaid">₱0.00</strong><div class="hint">Recorded collections</div></div><div class="card stat"><small>Unpaid bills</small><strong id="sDue">0</strong><div class="hint">For follow-up</div></div></div>
    <div class="card section"><div class="pagehead"><h3>Recent payments</h3><button class="secondary" onclick="showPage('payments')">View all</button></div><div id="recent"></div></div>
    <div class="card section"><h3>Quick actions</h3><div class="quick"><button onclick="openForm('tenant')">＋ Add tenant</button><button class="secondary" onclick="openForm('property')">＋ Add property</button><button class="secondary" onclick="openForm('bill')">＋ Create bill</button><button class="secondary" onclick="openForm('ad')">＋ Post rental ad</button></div></div>
@@ -990,7 +988,7 @@ html[data-theme="dark"] .ios-guide-tip{background:#12382f;border-color:#245b4c;c
 <div id="modal" class="modal hidden"><div class="modalbox"><div class="modalhead"><h3 id="modalTitle">Form</h3><button class="secondary" onclick="closeModal()">✕</button></div><div id="modalBody"></div></div></div><div id="toast" class="toast hidden"></div>
 <div id="licenseGate" class="license-gate hidden"><div class="license-card"><div class="ad-tag" style="background:#eaf3fb;color:#2878c8;border:0">RENTFLOW LICENSE ACTIVATION</div><h1>Activate your RentFlow account</h1><p id="licenseGateMessage">Your 7-day free trial has ended. Enter the license key provided by the RentFlow administrator to continue.</p><div class="field"><label>Registered Device ID</label><div class="license-device"><code id="licenseDeviceId">Loading…</code><button type="button" class="secondary" onclick="copyDeviceId()">Copy ID</button></div></div><form id="licenseForm"><div class="field"><label for="licenseKeyInput">License key</label><input id="licenseKeyInput" name="licenseKey" placeholder="RF1-XXXXX-XXXXX" autocomplete="off" required></div><button class="wide" type="submit">Activate 1-Year License</button></form><div id="licenseError" style="color:#b93d4b;font-size:12px;margin-top:10px"></div><div class="license-help">One account is assigned to one device. Your rental records remain stored in your account while access is locked.</div><div class="license-actions"><button type="button" class="secondary" onclick="logout()">Log out</button></div></div></div>
 <script>
-const API='/api/rentflow';let token=sessionStorage.getItem('rf_token')||'',me=null,records={tenants:[],properties:[],bills:[],payments:[],ads:[]};
+const API='https://managerentals-ph.vercel.app/api/rentflow';let token=sessionStorage.getItem('rf_token')||'',me=null,records={tenants:[],properties:[],bills:[],payments:[],ads:[]};
 const $=id=>document.getElementById(id),peso=n=>'₱'+Number(n||0).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2}),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function switchAuth(which){$('loginPanel').classList.toggle('hidden',which!=='login');$('registerPanel').classList.toggle('hidden',which!=='register');$('loginTab').classList.toggle('active',which==='login');$('registerTab').classList.toggle('active',which==='register');$('authGateTitle').textContent=which==='login'?'Welcome back':'Create your account';$('authGateSubtitle').textContent=which==='login'?'Sign in to manage your rental business.':'Set up your own private rental workspace.';$('authError').textContent=''}
 function openAuthMenu(which='login'){$('authGate').classList.remove('hidden');document.body.style.overflow='hidden';switchAuth(which);setTimeout(()=>{let f=$('authGate').querySelector(which==='login'?'input[name="email"]':'input[name="name"]');f?.focus()},80)}
@@ -1038,7 +1036,17 @@ async function activateLicenseFromSettings(e){
  finally{done();}
 }
 
-async function api(action,data={}){let r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,token,deviceId,...data})});let j=await r.json();if(!r.ok||!j.ok)throw Error(j.error||'Request failed');return j}
+async function api(action,data={}){
+ const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,token,deviceId,...data})});
+ const raw=await r.text();
+ let j;
+ try{j=JSON.parse(raw)}catch(_){
+  const type=r.headers.get('content-type')||'unknown content type';
+  throw Error(`Server returned a non-JSON response (HTTP ${r.status}; ${type}). Check the Vercel API route and deployment.`);
+ }
+ if(!r.ok||!j.ok)throw Error(j.error||`Request failed (HTTP ${r.status})`);
+ return j;
+}
 $('loginForm').onsubmit=async e=>{e.preventDefault();let f=Object.fromEntries(new FormData(e.target)),done=buttonBusy(e.submitter,'Signing in...');$('authError').textContent='';try{let r=await api('login',f);token=r.token;sessionStorage.setItem('rf_token',token);await enterApp()}catch(x){$('authError').textContent=x.message}finally{done()}};
 $('registerForm').onsubmit=async e=>{e.preventDefault();let f=Object.fromEntries(new FormData(e.target)),done=buttonBusy(e.submitter,'Creating account...');$('authError').textContent='';try{let r=await api('register',f);token=r.token;sessionStorage.setItem('rf_token',token);await enterApp()}catch(x){$('authError').textContent=x.message}finally{done()}};
 async function enterApp(){try{let r=await api('me');me=r.user;applyTheme();updateSettingsLicense(r.license);closeAuthMenu();if(r.license?.state!=='trial'&&r.license?.state!=='active'){showLicenseGate(r.license);return}$('licenseGate').classList.add('hidden');$('auth').classList.add('hidden');$('app').classList.remove('hidden');$('businessName').textContent=me.business||'RentFlow';$('userName').textContent=me.name;$('userAvatar').textContent=(me.name||'U').slice(0,1).toUpperCase();$('setBusiness').value=me.business||'';$('setPhone').value=me.phone||'';$('setAddress').value=me.address||'';$('setEmail').value=me.email||'';updateLicenseBadge(r.license);await loadAll()}catch(e){logout(false);if(e.message.includes('another device'))toast(e.message)}}
