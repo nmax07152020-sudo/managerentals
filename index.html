@@ -725,13 +725,90 @@ html, body {
   .login-menu-btn { padding: 6px 7px !important; font-size: 9px !important; }
 }
 
+
+/* V3.0 app install links + iOS Add to Home Screen guide */
+.landing-actions{display:flex;align-items:center;justify-content:flex-end;gap:clamp(5px,.8vw,10px);min-width:0}
+.app-download-btn,.ios-guide-btn{display:inline-flex;align-items:center;justify-content:center;gap:clamp(4px,.6vw,7px);min-height:0;padding:clamp(6px,.8vw,9px) clamp(8px,1.1vw,13px);border-radius:11px;border:1px solid #ffffff55;color:#fff;text-decoration:none;font-size:clamp(9px,1vw,12px);font-weight:850;line-height:1.2;white-space:nowrap;background:#ffffff16;backdrop-filter:blur(10px);transition:background .18s,transform .18s}
+.app-download-btn{background:linear-gradient(135deg,#16a875,#087d68);border-color:#80e5c4a8}
+.ios-guide-btn{background:#ffffff18}
+.app-download-btn:hover,.ios-guide-btn:hover{background:#ffffff35;transform:translateY(-1px)}
+.app-download-btn>span:first-child,.ios-guide-btn>span:first-child{font-size:clamp(12px,1.4vw,16px);line-height:1}
+.ios-guide-overlay{position:fixed;inset:0;z-index:1200;display:grid;place-items:center;overflow-y:auto;padding:18px;background:#061827c9;backdrop-filter:blur(8px)}
+.ios-guide-card{width:min(540px,100%);max-height:min(92dvh,820px);overflow-y:auto;background:#fff;color:#1a2d3e;border-radius:20px;padding:clamp(18px,4vw,27px);box-shadow:0 28px 90px #0006}
+.ios-guide-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px}
+.ios-guide-kicker{font-size:9px;font-weight:900;letter-spacing:1.3px;color:#2878c8}
+.ios-guide-head h2{font-size:26px;line-height:1.1;margin:6px 0 3px}
+.ios-guide-head p{margin:0;color:#6c7f91;font-size:13px;font-weight:700}
+.ios-guide-close{width:34px;height:34px;flex:0 0 34px;padding:0;border-radius:50%;background:#edf3f8;color:#526b80;font-size:23px;line-height:1}
+.ios-guide-intro{font-size:13px;line-height:1.6;color:#53677a;margin:18px 0}
+.ios-guide-steps{list-style:none;padding:0;margin:0;display:grid;gap:13px}
+.ios-guide-steps li{display:grid;grid-template-columns:32px minmax(0,1fr);gap:11px;align-items:start}
+.ios-step-num{width:30px;height:30px;border-radius:10px;background:#e8f3ff;color:#1768ad;display:grid;place-items:center;font-weight:900;font-size:13px}
+.ios-guide-steps b{display:block;font-size:13px;color:#20384d;margin:1px 0 3px}
+.ios-guide-steps p{font-size:12px;line-height:1.5;color:#6d8092;margin:0}
+.ios-guide-tip{margin-top:17px;padding:12px 14px;border-radius:12px;background:#edf8f4;border:1px solid #cceee1;color:#286a56;font-size:12px;line-height:1.5}
+.ios-guide-done{width:100%;margin-top:16px;background:#2878c8;padding:11px 14px}
+html[data-theme="dark"] .ios-guide-card{background:#142334;color:#e7eef6;border:1px solid #2a4055}
+html[data-theme="dark"] .ios-guide-head p,html[data-theme="dark"] .ios-guide-intro,html[data-theme="dark"] .ios-guide-steps p{color:#b5c5d5}
+html[data-theme="dark"] .ios-guide-steps b{color:#edf4fb}
+html[data-theme="dark"] .ios-guide-close{background:#263e56;color:#e7eef6}
+html[data-theme="dark"] .ios-guide-tip{background:#12382f;border-color:#245b4c;color:#c5f0df}
+@media(max-width:600px){
+ .landing-actions{gap:4px}
+ .app-download-btn,.ios-guide-btn,.login-menu-btn{padding:7px 8px!important;font-size:9px!important;gap:4px!important;border-radius:9px!important}
+ .app-download-btn>span:first-child,.ios-guide-btn>span:first-child,.login-menu-btn>span:first-child{font-size:12px!important}
+ .landing-top{gap:7px!important}
+}
+@media(max-width:370px){
+ .landing-brand{font-size:14px!important}
+ .landing-actions{gap:3px}
+ .app-download-btn,.ios-guide-btn,.login-menu-btn{padding:6px 6px!important;font-size:8px!important}
+ .action-label{letter-spacing:-.2px}
+}
+
+
+/* V3.1 crisp, matched vector icons for Android, Apple iOS and Login */
+.landing-actions .action-svg{
+ display:block!important;
+ width:clamp(14px,1.45vw,18px)!important;
+ height:clamp(14px,1.45vw,18px)!important;
+ flex:0 0 auto!important;
+ overflow:visible;
+}
+.landing-actions .android-svg{width:clamp(15px,1.55vw,19px)!important;height:clamp(15px,1.55vw,19px)!important}
+.landing-actions .apple-svg{width:clamp(15px,1.55vw,19px)!important;height:clamp(15px,1.55vw,19px)!important}
+.landing-actions .menu-svg{width:clamp(14px,1.4vw,17px)!important;height:clamp(14px,1.4vw,17px)!important}
+.landing-actions .app-download-btn,
+.landing-actions .ios-guide-btn,
+.landing-actions .login-menu-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important}
+.landing-actions .app-download-btn{box-shadow:0 5px 14px #063f3560,inset 0 1px #ffffff38}
+.landing-actions .ios-guide-btn{box-shadow:0 4px 12px #061b3340,inset 0 1px #ffffff30}
+.landing-actions .login-menu-btn{box-shadow:0 4px 12px #061b3340,inset 0 1px #ffffff30}
+@media(max-width:600px){
+ .landing-actions .action-svg{width:14px!important;height:14px!important}
+ .landing-actions .android-svg,.landing-actions .apple-svg{width:15px!important;height:15px!important}
+}
+
 </style>
 </head>
 <body>
 <section id="auth" class="landing">
  <header class="landing-top">
   <a class="landing-brand" href="#" aria-label="RentFlow home"><span class="landing-mark" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M7 22.5 24 8l17 14.5" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 21v19h24V21" fill="#fff" fill-opacity=".96"/><path d="M20 40V27h8v13" fill="#1686d9"/><rect x="15.5" y="25" width="4.5" height="5" rx="1" fill="#42b9f3"/><rect x="28" y="25" width="4.5" height="5" rx="1" fill="#42b9f3"/></svg></span><span>RentFlow</span></a>
-  <button class="login-menu-btn" onclick="openAuthMenu('login')"><span>☰</span> Login Menu</button>
+  <div class="landing-actions">
+   <a class="app-download-btn" href="/downloads/RentFlow.apk" download aria-label="Download RentFlow for Android">
+    <svg class="action-svg android-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7.2 8.2h9.6a2 2 0 0 1 2 2v6.1a1.7 1.7 0 0 1-1.7 1.7H6.9a1.7 1.7 0 0 1-1.7-1.7v-6.1a2 2 0 0 1 2-2Z" fill="currentColor"/><path d="m7.1 5.9-1.4-2M16.9 5.9l1.4-2M8.8 8V6.9a3.2 3.2 0 0 1 6.4 0V8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M3.8 10.2v5.2M20.2 10.2v5.2M8.2 18v2M15.8 18v2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="9.2" cy="11.2" r=".65" fill="#087d68"/><circle cx="14.8" cy="11.2" r=".65" fill="#087d68"/></svg>
+    <span class="action-label">Android App</span>
+   </a>
+   <button class="ios-guide-btn" type="button" onclick="openIOSGuide()" aria-label="Open Apple iOS installation guide">
+    <svg class="action-svg apple-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16.7 12.8c0-2 1.6-3 1.7-3.1-1-1.4-2.5-1.6-3-1.6-1.3-.1-2.5.8-3.2.8-.7 0-1.7-.8-2.8-.8-1.4 0-2.7.8-3.4 2.1-1.5 2.6-.4 6.4 1.1 8.5.7 1 1.5 2.1 2.6 2.1 1 0 1.4-.7 2.7-.7s1.7.7 2.8.7c1.1 0 1.8-1 2.5-2 .8-1.2 1.1-2.3 1.1-2.4-.1 0-2.1-.8-2.1-3.6ZM14.6 6.7c.6-.8 1-1.9.9-2.9-1 .1-2.2.7-2.9 1.5-.6.7-1.1 1.8-1 2.8 1.1.1 2.3-.5 3-1.4Z"/></svg>
+    <span class="action-label">iOS Guide</span>
+   </button>
+   <button class="login-menu-btn" onclick="openAuthMenu('login')" aria-label="Open login menu">
+    <svg class="action-svg menu-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6.5h16M4 12h16M4 17.5h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <span class="action-label">Login Menu</span>
+   </button>
+  </div>
  </header>
  <main class="landing-main">
   <div class="landing-copy">
@@ -809,6 +886,25 @@ html, body {
   </div>
  </section>
  <footer class="landing-footer">© 2026 • Developed &amp; Maintained by Erwin R. Alincastre</footer>
+
+ <div id="iosGuide" class="ios-guide-overlay hidden" onclick="if(event.target===this)closeIOSGuide()">
+  <section class="ios-guide-card" role="dialog" aria-modal="true" aria-labelledby="iosGuideTitle">
+   <header class="ios-guide-head">
+    <div><span class="ios-guide-kicker">RENTFLOW MOBILE ACCESS</span><h2 id="iosGuideTitle">Apple iOS</h2><p>iPhone / iPad — Save this App</p></div>
+    <button type="button" class="ios-guide-close" onclick="closeIOSGuide()" aria-label="Close">×</button>
+   </header>
+   <p class="ios-guide-intro">Walang kailangang i-install na Android APK sa iPhone/iPad. Para madaling balikan ang RentFlow dashboard, gamitin ang Safari at idagdag ito sa Home Screen o Bookmark.</p>
+   <ol class="ios-guide-steps">
+    <li><span class="ios-step-num">1</span><div><b>Buksan gamit ang Safari</b><p>Open the RentFlow website in Safari sa iPhone o iPad.</p></div></li>
+    <li><span class="ios-step-num">2</span><div><b>Pindutin ang Share</b><p>I-tap ang Share icon (square na may arrow) sa Safari toolbar.</p></div></li>
+    <li><span class="ios-step-num">3</span><div><b>Piliin ang “Add to Home Screen”</b><p>Magkakaroon ng shortcut sa Home Screen na parang app.</p></div></li>
+    <li><span class="ios-step-num">4</span><div><b>Optional: Add Bookmark</b><p>Pwede ring piliin ang “Add Bookmark” para ma-save sa Safari bookmarks.</p></div></li>
+   </ol>
+   <div class="ios-guide-tip"><b>Tip:</b> Mas convenient ang Add to Home Screen para one-tap access sa dashboard nang walang Android APK.</div>
+   <button type="button" class="ios-guide-done" onclick="closeIOSGuide()">Got it</button>
+  </section>
+ </div>
+
  <div id="authGate" class="auth-gate hidden" onclick="if(event.target===this)closeAuthMenu()">
   <div class="auth-gate-card" role="dialog" aria-modal="true" aria-labelledby="authGateTitle">
    <div class="auth-gate-head"><div><small>RENTFLOW ACCOUNT</small><h2 id="authGateTitle">Welcome back</h2><p id="authGateSubtitle">Sign in to manage your rental business.</p></div><button class="auth-close" type="button" onclick="closeAuthMenu()" aria-label="Close">✕</button></div>
@@ -939,4 +1035,23 @@ function editRecord(type,id){let col={tenant:'tenants',property:'properties',bil
 async function removeRecord(collection,id,btn){if(!confirm('Delete this record?'))return;let done=buttonBusy(btn,'Deleting...');try{await api('delete',{collection,id});await loadAll();toast('Record deleted')}catch(e){toast(e.message)}finally{done()}}
 async function saveProfile(){let done=buttonBusy($('profileSaveBtn'),'Saving profile...');try{let r=await api('profile',{business:$('setBusiness').value,phone:$('setPhone').value,address:$('setAddress').value});me=r.user;$('businessName').textContent=me.business;toast('Business profile updated')}catch(e){toast(e.message)}finally{done()}}
 applyTheme();(async()=>{if(token)await enterApp()})();
-</script></body></html>
+</script><script>
+
+function openIOSGuide(){
+ const el=document.getElementById('iosGuide');
+ if(!el)return;
+ el.classList.remove('hidden');
+ document.body.style.overflow='hidden';
+}
+function closeIOSGuide(){
+ const el=document.getElementById('iosGuide');
+ if(!el)return;
+ el.classList.add('hidden');
+ document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{
+ if(e.key==='Escape')closeIOSGuide();
+});
+
+</script>
+</body></html>
