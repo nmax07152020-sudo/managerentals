@@ -1,0 +1,4 @@
+{
+  "version": 2,
+  "functions": { "api/rentflow.js": { "maxDuration": 10 } }
+}
