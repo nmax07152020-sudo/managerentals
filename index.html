@@ -136,12 +136,47 @@ html[data-theme="dark"] .license-badge{background:#203b54;color:#b9dcff}
 .license-card h1{font-size:clamp(25px,5vw,34px);margin:0 0 8px}.license-card p{color:#718397}.license-device{display:flex;gap:8px;align-items:center;background:#f2f6fa;border:1px solid #dfe8f0;border-radius:12px;padding:10px;margin:16px 0;min-width:0}.license-device code{font-size:11px;overflow-wrap:anywhere;flex:1;color:#29465f}.license-device button{padding:8px 10px;font-size:11px}.license-card .field input{background:#f7faff}.license-help{font-size:12px;color:#718397;margin-top:14px}.license-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.license-actions button{flex:1}
 @media(max-width:640px){.license-card{padding:22px 18px}.user-pill .license-badge{display:none}}
 
+
+/* V1.8.1 landing page visual polish */
+.landing-brand{font-size:clamp(21px,2vw,28px);letter-spacing:-.8px}
+.landing-mark{width:48px;height:48px;border-radius:15px;background:linear-gradient(145deg,#12b9ef,#1674d0);box-shadow:0 8px 22px #001b3655;border:1px solid #7bdfff66}
+.landing-mark svg{width:31px;height:31px;display:block}
+.login-menu-btn{background:linear-gradient(135deg,#168ee8,#1766bd);border:1px solid #75cfff99;color:#fff;padding:12px 19px;border-radius:13px;box-shadow:0 8px 22px #001d3b35;font-weight:850;transition:transform .18s,filter .18s}
+.login-menu-btn:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.login-menu-btn span{font-size:18px}
+.landing-cta{background:linear-gradient(135deg,#11a9f4,#0873dc);color:#fff;border:1px solid #69d6ff99;border-radius:999px;padding:15px 23px;min-width:185px;box-shadow:0 12px 30px #001d3d55;transition:transform .18s,filter .18s}
+.landing-cta:hover{filter:brightness(1.12);transform:translateY(-2px)}
+.landing-cta-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap}.landing-cta-note{display:flex;flex-direction:column;color:#fff;font-size:13px}.landing-cta-note span{color:#cde5f0;font-size:12px}.landing-cta span{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#ffffff25;margin-left:12px;padding:0;font-size:20px}
+.landing-extra{width:min(1400px,100%);margin:0 auto;padding:0 clamp(20px,5vw,76px) 24px;position:relative;z-index:1}
+.landing-features{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));background:#ffffff18;border:1px solid #ffffff35;border-radius:22px;backdrop-filter:blur(14px);overflow:hidden;box-shadow:0 16px 40px #001b3030}
+.landing-feature{display:flex;align-items:center;gap:12px;padding:18px 16px;min-width:0;border-right:1px solid #ffffff25}
+.landing-feature:last-child{border-right:0}
+.feature-icon{width:48px;height:48px;flex:0 0 48px;border-radius:50%;display:grid;place-items:center;background:#ffffff25;color:#e8f8ff;font-size:23px}
+.landing-feature b{display:block;font-size:13px;color:#fff}.landing-feature span{display:block;font-size:11px;line-height:1.35;color:#d4eaf3;margin-top:3px}
+.landing-info{display:grid;grid-template-columns:1fr 1.1fr 1fr;gap:18px;margin-top:20px}
+.landing-info-card{border:1px solid #ffffff40;background:linear-gradient(145deg,#ffffff18,#ffffff0a);border-radius:22px;padding:20px 22px;backdrop-filter:blur(12px);min-width:0;box-shadow:0 12px 30px #001c3030}
+.landing-info-head{display:flex;align-items:center;gap:13px;margin-bottom:12px}
+.landing-info-icon{width:54px;height:54px;flex:0 0 54px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#7867ff,#a48aff);font-size:25px;box-shadow:0 8px 20px #001c3035}
+.landing-info-card h3{font-size:20px;line-height:1.15;margin:0 0 4px;color:#fff}
+.landing-info-card p{font-size:13px;color:#d9edf5;margin:0;line-height:1.55}
+.landing-checks{display:grid;gap:7px;margin:13px 0 0;padding:0;list-style:none;color:#effaff;font-size:12px}
+.landing-checks li:before{content:"✓";display:inline-grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#11b990;color:white;font-weight:900;margin-right:8px}
+.landing-license-icon{background:linear-gradient(145deg,#ffb32d,#ff8a38)}
+.landing-contact-icon{background:linear-gradient(145deg,#087df0,#0757c8)}
+.landing-contact-link{display:flex;align-items:center;gap:10px;margin-top:9px;padding:10px 12px;border-radius:13px;background:#ffffff17;border:1px solid #ffffff28;color:#fff;text-decoration:none;font-weight:750;font-size:13px;overflow-wrap:anywhere}
+.landing-contact-link:hover{background:#ffffff28}
+.landing-contact-link span{width:28px;height:28px;flex:0 0 28px;border-radius:50%;display:grid;place-items:center;background:#1689ed}
+.landing-footer{padding:19px 20px}
+@media(max-width:1050px){.landing-main{grid-template-columns:minmax(260px,.8fr) minmax(390px,1.2fr);gap:30px}.landing-features{grid-template-columns:repeat(3,minmax(0,1fr))}.landing-feature:nth-child(3){border-right:0}.landing-feature:nth-child(n+4){border-top:1px solid #ffffff25}}
+@media(max-width:760px){.landing-main{grid-template-columns:1fr;padding-top:35px;padding-bottom:28px}.landing-copy{max-width:680px}.landing-copy h1{font-size:clamp(40px,9vw,62px)}.landing-preview{transform:none}.landing-info{grid-template-columns:1fr 1fr}.landing-info-card:last-child{grid-column:1/-1}.landing-features{grid-template-columns:repeat(2,minmax(0,1fr))}.landing-feature:nth-child(2n){border-right:0}.landing-feature:nth-child(3){border-right:1px solid #ffffff25}.landing-feature:nth-child(n+3){border-top:1px solid #ffffff25}}
+@media(max-width:480px){.landing-top{height:68px;padding:0 15px}.landing-mark{width:40px;height:40px}.landing-mark svg{width:27px;height:27px}.landing-brand{font-size:20px}.login-menu-btn{padding:10px 12px;font-size:12px}.landing-main{padding:30px 17px 24px}.landing-benefits{gap:18px;margin:24px 0}.landing-cta{width:100%;max-width:260px}.landing-preview{grid-template-columns:88px minmax(0,1fr);border-radius:13px}.preview-sidebar{padding:11px 6px}.preview-brand{font-size:10px;margin:0 0 10px}.preview-nav{font-size:8px;padding:7px 4px;gap:4px}.preview-content{padding:10px}.preview-head b{font-size:13px}.preview-stats{gap:4px}.preview-stats>div{padding:6px}.preview-stats small,.preview-stats i{font-size:6px}.preview-stats b{font-size:11px}.preview-table{padding:7px}.preview-table div{font-size:6px}.preview-welcome{padding:9px}.preview-welcome b{font-size:11px}.preview-house{width:35px;min-width:35px;height:35px}.landing-extra{padding:0 15px 18px}.landing-features{grid-template-columns:1fr 1fr}.landing-feature{padding:12px 9px;gap:8px}.feature-icon{width:34px;height:34px;flex-basis:34px;font-size:17px}.landing-feature b{font-size:10px}.landing-feature span{font-size:9px}.landing-info{grid-template-columns:1fr;gap:12px}.landing-info-card,.landing-info-card:last-child{grid-column:auto;padding:17px}.landing-info-card h3{font-size:18px}.landing-info-card p{font-size:12px}}
+
 </style>
 </head>
 <body>
 <section id="auth" class="landing">
  <header class="landing-top">
-  <a class="landing-brand" href="#" aria-label="RentFlow home"><span class="landing-mark">⌂</span><span>RentFlow</span></a>
+  <a class="landing-brand" href="#" aria-label="RentFlow home"><span class="landing-mark" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M7 22.5 24 8l17 14.5" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 21v19h24V21" fill="#fff" fill-opacity=".96"/><path d="M20 40V27h8v13" fill="#1686d9"/><rect x="15.5" y="25" width="4.5" height="5" rx="1" fill="#42b9f3"/><rect x="28" y="25" width="4.5" height="5" rx="1" fill="#42b9f3"/></svg></span><span>RentFlow</span></a>
   <button class="login-menu-btn" onclick="openAuthMenu('login')"><span>☰</span> Login Menu</button>
  </header>
  <main class="landing-main">
@@ -152,7 +187,7 @@ html[data-theme="dark"] .license-badge{background:#203b54;color:#b9dcff}
    <div class="landing-benefits">
     <div><b>24/7</b><span>Online access</span></div><div><b>All-in-one</b><span>Rental records</span></div><div><b>Cloud</b><span>Data storage</span></div>
    </div>
-   <button class="landing-cta" onclick="openAuthMenu('register')">Get started <span>→</span></button>
+   <div class="landing-cta-row"><button class="landing-cta" onclick="openAuthMenu('register')">Get Started <span>→</span></button><div class="landing-cta-note"><b>Start your 7-day free trial</b><span>No credit card required.</span></div></div>
   </div>
   <div class="landing-preview-wrap">
    <div class="preview-caption"><span class="preview-live"></span> RENTFLOW WORKSPACE PREVIEW</div>
@@ -177,6 +212,31 @@ html[data-theme="dark"] .license-badge{background:#203b54;color:#b9dcff}
    <div class="preview-note">Sample interface preview · Actual records appear in your account</div>
   </div>
  </main>
+ <section class="landing-extra" aria-label="RentFlow information">
+  <div class="landing-features">
+   <div class="landing-feature"><span class="feature-icon">♟</span><div><b>Tenant Management</b><span>Keep track of tenants and their units.</span></div></div>
+   <div class="landing-feature"><span class="feature-icon">⌂</span><div><b>Property Management</b><span>Manage properties and rental units.</span></div></div>
+   <div class="landing-feature"><span class="feature-icon">▤</span><div><b>Bills &amp; Payments</b><span>Record bills, payments and history.</span></div></div>
+   <div class="landing-feature"><span class="feature-icon">▥</span><div><b>Reports &amp; Analytics</b><span>View income, occupancy and reports.</span></div></div>
+   <div class="landing-feature"><span class="feature-icon">▣</span><div><b>Ads / Listings</b><span>Post available units for rent.</span></div></div>
+  </div>
+  <div class="landing-info">
+   <article class="landing-info-card">
+    <div class="landing-info-head"><span class="landing-info-icon">◷</span><div><h3>7 Days Free Trial</h3><p>Try all RentFlow features for 7 days.</p></div></div>
+    <ul class="landing-checks"><li>Full access to all features</li><li>No credit card required</li><li>Easy account registration</li></ul>
+   </article>
+   <article class="landing-info-card">
+    <div class="landing-info-head"><span class="landing-info-icon landing-license-icon">⚿</span><div><h3>License Key Required</h3><p>After the free trial, you will need a valid license key to continue using RentFlow.</p></div></div>
+    <div class="license-device" style="background:#fff;border-color:#ffffff80;margin:12px 0 8px"><span style="font-size:20px;color:#51799b">⚿</span><code style="color:#7891a8">XXXX-XXXX-XXXX-XXXX</code></div>
+    <p style="font-size:11px">Enter your license key in Settings to activate a 1-year license.</p>
+   </article>
+   <article class="landing-info-card">
+    <div class="landing-info-head"><span class="landing-info-icon landing-contact-icon">☎</span><div><h3>Contact Us</h3><p>For license inquiries, technical support or assistance, contact us:</p></div></div>
+    <a class="landing-contact-link" href="mailto:winalincastrern@gmail.com"><span>✉</span>winalincastrern@gmail.com</a>
+    <a class="landing-contact-link" href="tel:09762597403"><span>☎</span>09762597403</a>
+   </article>
+  </div>
+ </section>
  <footer class="landing-footer">© 2026 • Developed &amp; Maintained by Erwin R. Alincastre</footer>
  <div id="authGate" class="auth-gate hidden" onclick="if(event.target===this)closeAuthMenu()">
   <div class="auth-gate-card" role="dialog" aria-modal="true" aria-labelledby="authGateTitle">
