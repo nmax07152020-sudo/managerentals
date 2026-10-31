@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>RentFlow • Property Manager</title>
+<meta name="description" content="RentFlow cloud property management workspace">
 <meta name="theme-color" content="#102b46">
 <style>
 :root{--navy:#102b46;--blue:#2878c8;--mint:#20b78a;--bg:#f3f7fb;--panel:#fff;--ink:#182b3b;--muted:#718397;--line:#e4ebf2;--shadow:0 14px 40px #16324b12}
@@ -56,6 +57,32 @@ html[data-accent] button:not(.secondary):not(.danger):not(.theme-swatch),html[da
 @media(max-width:600px){.landing-top{height:66px;padding:0 17px}.landing-brand{font-size:18px}.login-menu-btn{padding:9px 12px;font-size:12px}.landing-main{padding:30px 17px;gap:28px}.landing-copy h1{font-size:43px;letter-spacing:-1.8px}.landing-copy>p{font-size:14px}.landing-benefits{gap:18px;margin:25px 0}.landing-benefits b{font-size:18px}.landing-benefits span{font-size:10px}.landing-preview{grid-template-columns:105px minmax(0,1fr);border-radius:13px}.preview-sidebar{padding:12px 6px}.preview-brand{font-size:11px;margin-left:2px}.preview-brand span{width:21px;height:21px}.preview-nav{font-size:8px;gap:5px;padding:8px 5px}.preview-content{padding:10px}.preview-head b{font-size:13px}.preview-welcome{padding:10px}.preview-welcome b{font-size:11px}.preview-house{font-size:28px}.preview-stats{gap:5px}.preview-stats>div{padding:7px}.preview-stats small,.preview-stats i{font-size:6px}.preview-stats b{font-size:11px}.preview-table{padding:8px}.preview-table div{font-size:7px}.preview-note{font-size:8px}.landing-footer{font-size:10px;padding:14px 10px}.auth-gate-card{padding:20px;border-radius:17px}}
 @media(max-width:370px){.landing-copy h1{font-size:37px}.landing-benefits{gap:12px}.preview-nav{font-size:7px}.preview-stats b{font-size:9px}}
 
+
+/* V1.5 clean dual-theme system: consistent, high-contrast forms and controls */
+.theme-options.single{grid-template-columns:minmax(220px,360px)}
+.auth-appearance{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:-4px 0 15px;padding:10px 12px;border:1px solid #e3eaf1;border-radius:11px;background:#f7faff}
+.auth-appearance label{font-size:12px;font-weight:750;color:#53677a}
+.auth-appearance select{max-width:155px;border:1px solid #d6e0ea;border-radius:9px;padding:8px 10px;background:#fff;color:#1b2f40}
+.auth-gate-card .field{margin:14px 0}
+.auth-gate-card .field label{display:block;color:#52677b;font-size:12px;font-weight:750;margin-bottom:6px}
+.auth-gate-card .field input,.auth-gate-card .field select,.auth-gate-card .field textarea{width:100%;min-height:46px;background:#f4f8fc!important;color:#1b2f40!important;border:1px solid #cbd8e5!important;border-radius:11px;padding:12px;outline:none}
+.auth-gate-card .field input:focus,.auth-gate-card .field select:focus{border-color:#2878c8!important;box-shadow:0 0 0 3px #2878c81c}
+.auth-tabs{gap:5px;background:#edf2f7;padding:4px}
+.auth-tab{background:transparent!important;color:#52677b!important;border-radius:9px}
+.auth-tab.active{background:#fff!important;color:#155b9d!important;box-shadow:0 2px 7px #18344d18}
+.auth-gate-card form button.wide{background:#2878c8;color:#fff;min-height:47px}
+html[data-theme="dark"] .auth-gate-card{background:#142334;color:#e7eef6;border:1px solid #2a4055}
+html[data-theme="dark"] .auth-gate-head p,html[data-theme="dark"] .auth-gate-card .auth-switch{color:#b5c5d5}
+html[data-theme="dark"] .auth-gate-card .field label,html[data-theme="dark"] .auth-appearance label{color:#c3d2e0}
+html[data-theme="dark"] .auth-gate-card .field input,html[data-theme="dark"] .auth-gate-card .field select,html[data-theme="dark"] .auth-gate-card .field textarea{background:#0c1b2a!important;color:#edf4fb!important;border-color:#3b5268!important}
+html[data-theme="dark"] .auth-tabs,html[data-theme="dark"] .auth-appearance{background:#0d1d2d;border-color:#2d4358}
+html[data-theme="dark"] .auth-tab{color:#c2d0de!important}
+html[data-theme="dark"] .auth-tab.active{background:#203b54!important;color:#fff!important}
+html[data-theme="dark"] .auth-appearance select{background:#142334;color:#edf4fb;border-color:#3b5268}
+html[data-theme="dark"] .auth-close{background:#263e56;color:#e7eef6}
+html[data-theme="dark"] .theme-card .muted{color:#b5c5d5}
+@media(max-width:600px){.auth-gate{padding:10px}.auth-gate-card{width:100%;max-height:94svh;padding:19px}.auth-gate-head h2{font-size:24px}.auth-appearance{margin-top:0}.theme-options.single{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -102,6 +129,7 @@ html[data-accent] button:not(.secondary):not(.danger):not(.theme-swatch),html[da
   <div class="auth-gate-card" role="dialog" aria-modal="true" aria-labelledby="authGateTitle">
    <div class="auth-gate-head"><div><small>RENTFLOW ACCOUNT</small><h2 id="authGateTitle">Welcome back</h2><p id="authGateSubtitle">Sign in to manage your rental business.</p></div><button class="auth-close" type="button" onclick="closeAuthMenu()" aria-label="Close">✕</button></div>
    <div class="auth-tabs"><button type="button" id="loginTab" class="auth-tab active" onclick="switchAuth('login')">Login</button><button type="button" id="registerTab" class="auth-tab" onclick="switchAuth('register')">Create account</button></div>
+   <div class="auth-appearance"><label for="authThemeMode">Appearance</label><select id="authThemeMode" onchange="setThemeMode(this.value)"><option value="light">☀️ Light</option><option value="dark">🌙 Dark</option></select></div>
    <div id="loginPanel"><form id="loginForm"><div class="field"><label>Email address</label><input name="email" type="email" required autocomplete="username"></div><div class="field"><label>Password</label><input name="password" type="password" required autocomplete="current-password"></div><button class="wide">Login to RentFlow</button></form><div class="auth-switch muted">New to RentFlow? <span class="link" onclick="switchAuth('register')">Create an account</span></div></div>
    <div id="registerPanel" class="hidden"><form id="registerForm"><div class="field"><label>Your full name</label><input name="name" required maxlength="100"></div><div class="field"><label>Business / property name</label><input name="business" required maxlength="120"></div><div class="field"><label>Email address</label><input name="email" type="email" required autocomplete="email"></div><div class="field"><label>Password (at least 8 characters)</label><input name="password" type="password" required minlength="8" autocomplete="new-password"></div><button class="wide">Register free account</button></form><div class="auth-switch muted">Already registered? <span class="link" onclick="switchAuth('login')">Login</span></div></div>
    <p id="authError" class="muted" style="color:#b93d4b;margin-top:14px"></p>
@@ -126,16 +154,8 @@ html[data-accent] button:not(.secondary):not(.danger):not(.theme-swatch),html[da
   <section id="page-settings" class="page hidden">
    <div class="pagehead"><div><h1>Settings & Theme</h1><div class="muted">Manage your business profile and personalize RentFlow</div></div><button id="profileSaveBtn" onclick="saveProfile()">Save changes</button></div>
    <div class="card"><h3 style="margin-top:0">Business Profile</h3><div class="formgrid"><div class="field"><label>Business name</label><input id="setBusiness"></div><div class="field"><label>Contact number</label><input id="setPhone"></div><div class="field"><label>Business address</label><input id="setAddress"></div><div class="field"><label>Contact email</label><input id="setEmail" disabled></div></div></div>
-   <div class="card theme-card"><div class="theme-head"><div><h3 style="margin:0">🎨 Theme & Display</h3><div class="muted">Choose your preferred colors and appearance. Your selection is saved on this device.</div></div><span class="theme-indicator" id="themeIndicator">Light mode</span></div>
-    <div class="theme-label">Color presets</div><div class="theme-presets">
-     <button type="button" class="theme-swatch blue" data-theme="blue" onclick="setTheme('blue')">Blue</button>
-     <button type="button" class="theme-swatch green" data-theme="green" onclick="setTheme('green')">Green</button>
-     <button type="button" class="theme-swatch purple" data-theme="purple" onclick="setTheme('purple')">Purple</button>
-     <button type="button" class="theme-swatch orange" data-theme="orange" onclick="setTheme('orange')">Orange</button>
-     <button type="button" class="theme-swatch rose" data-theme="rose" onclick="setTheme('rose')">Rose</button>
-    </div>
-    <div class="theme-options"><div class="field"><label>Appearance</label><select id="themeMode" onchange="setThemeMode(this.value)"><option value="light">☀️ Light mode</option><option value="dark">🌙 Dark mode</option></select></div><div class="field"><label>Custom accent color</label><input id="themeColor" type="color" value="#2878c8" onchange="setCustomThemeColor(this.value)"></div></div>
-    <div class="theme-preview"><span class="preview-dot"></span><div><b>Live preview</b><small>Your selected theme applies throughout the dashboard.</small></div><button type="button" class="preview-button">Preview button</button></div>
+   <div class="card theme-card"><div class="theme-head"><div><h3 style="margin:0">Appearance</h3><div class="muted">Choose Light or Dark mode. Your preference is saved on this device.</div></div><span class="theme-indicator" id="themeIndicator">Light mode</span></div>
+    <div class="theme-options single"><div class="field"><label for="themeMode">Display mode</label><select id="themeMode" onchange="setThemeMode(this.value)"><option value="light">☀️ Light mode</option><option value="dark">🌙 Dark mode</option></select></div></div>
    </div>
   </section>
  </main></div>
@@ -150,13 +170,11 @@ function closeAuthMenu(){$('authGate').classList.add('hidden');document.body.sty
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('authGate').classList.contains('hidden'))closeAuthMenu()});
 function toast(s){$('toast').textContent=s;$('toast').classList.remove('hidden');setTimeout(()=>$('toast').classList.add('hidden'),2600)}
 function buttonBusy(btn,label='Saving...'){if(!btn)return()=>{};if(btn.dataset.busy==='1')return()=>{};const old=btn.innerHTML;btn.dataset.busy='1';btn.disabled=true;btn.classList.add('btn-loading');btn.innerHTML='<span class="rf-spinner" aria-hidden="true"></span><span>'+label+'</span>';return()=>{btn.innerHTML=old;btn.disabled=false;btn.dataset.busy='0';btn.classList.remove('btn-loading')}}
-const themePresets={blue:'#2878c8',green:'#159b72',purple:'#8054cf',orange:'#e98227',rose:'#df5578'};
-function applyTheme(){let t={mode:'light',preset:'blue',color:themePresets.blue};try{t={...t,...JSON.parse(localStorage.getItem('rentflow_theme')||'{}')}}catch(e){}document.documentElement.dataset.theme=t.mode;document.documentElement.dataset.accent=t.preset||'blue';document.documentElement.style.setProperty('--accent',t.color||themePresets.blue);if($('themeMode'))$('themeMode').value=t.mode;if($('themeColor'))$('themeColor').value=t.color||themePresets.blue;if($('themeIndicator'))$('themeIndicator').textContent=t.mode==='dark'?'Dark mode':'Light mode';document.querySelectorAll('.theme-swatch[data-theme]').forEach(b=>b.classList.toggle('selected',b.dataset.theme===(t.preset||'blue')))}
-function saveTheme(t){localStorage.setItem('rentflow_theme',JSON.stringify(t));applyTheme()}
-function getTheme(){try{return{mode:'light',preset:'blue',color:themePresets.blue,...JSON.parse(localStorage.getItem('rentflow_theme')||'{}')}}catch(e){return{mode:'light',preset:'blue',color:themePresets.blue}}}
-function setTheme(preset){let t=getTheme();t.preset=preset;t.color=themePresets[preset]||themePresets.blue;saveTheme(t)}
+const themePresets={blue:'#2878c8'};
+function applyTheme(){let t={mode:'light'};try{t={...t,...JSON.parse(localStorage.getItem('rentflow_theme')||'{}')}}catch(e){}t.mode=t.mode==='dark'?'dark':'light';document.documentElement.dataset.theme=t.mode;document.documentElement.dataset.accent='blue';document.documentElement.style.setProperty('--accent',themePresets.blue);if($('themeMode'))$('themeMode').value=t.mode;if($('authThemeMode'))$('authThemeMode').value=t.mode;if($('themeIndicator'))$('themeIndicator').textContent=t.mode==='dark'?'Dark mode':'Light mode'}
+function saveTheme(t){localStorage.setItem('rentflow_theme',JSON.stringify({mode:t.mode==='dark'?'dark':'light'}));applyTheme()}
+function getTheme(){try{return{mode:'light',...JSON.parse(localStorage.getItem('rentflow_theme')||'{}')}}catch(e){return{mode:'light'}}}
 function setThemeMode(mode){let t=getTheme();t.mode=mode==='dark'?'dark':'light';saveTheme(t)}
-function setCustomThemeColor(color){let t=getTheme();t.color=color;t.preset='custom';saveTheme(t);document.querySelectorAll('.theme-swatch[data-theme]').forEach(b=>b.classList.remove('selected'))}
 
 async function api(action,data={}){let r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,token,...data})});let j=await r.json();if(!r.ok||!j.ok)throw Error(j.error||'Request failed');return j}
 $('loginForm').onsubmit=async e=>{e.preventDefault();let f=Object.fromEntries(new FormData(e.target)),done=buttonBusy(e.submitter,'Signing in...');$('authError').textContent='';try{let r=await api('login',f);token=r.token;sessionStorage.setItem('rf_token',token);await enterApp()}catch(x){$('authError').textContent=x.message}finally{done()}};
