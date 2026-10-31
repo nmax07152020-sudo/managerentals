@@ -796,6 +796,23 @@ html[data-theme="dark"] .ios-guide-tip{background:#12382f;border-color:#245b4c;c
 .topbar .logo { overflow:hidden; padding:0!important; display:grid; place-items:center; }
 .topbar .logo img { display:block; width:100%; height:100%; object-fit:cover; border-radius:inherit; }
 
+
+/* Tenant table responsive layout */
+#tenantTable .tablewrap{width:100%;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+#tenantTable table{width:100%;min-width:620px}
+@media(max-width:640px){
+  #tenantTable .tablewrap{overflow:visible}
+  #tenantTable table{min-width:0;width:100%;table-layout:fixed;border-collapse:separate;border-spacing:0 10px}
+  #tenantTable thead{display:none}
+  #tenantTable tbody{display:block;width:100%}
+  #tenantTable tbody tr{display:block;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:8px 12px;box-shadow:0 2px 8px #102b4610}
+  #tenantTable tbody td{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;width:100%;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px;overflow-wrap:anywhere;min-width:0}
+  #tenantTable tbody td:last-child{border-bottom:0}
+  #tenantTable tbody td::before{content:attr(data-label);flex:0 0 76px;color:var(--muted);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.35px;padding-top:2px}
+  #tenantTable tbody td .actions{margin-left:auto;flex-wrap:wrap;justify-content:flex-end}
+  #tenantTable tbody td .actions button{min-height:32px}
+}
+
 </style>
 
 
@@ -1081,7 +1098,7 @@ document.querySelector('.nav:last-child')?.addEventListener('click',e=>{let b=e.
 function table(head,rows){return rows.length?`<div class="tablewrap"><table><thead><tr>${head.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`:'<div class="empty">No records yet. Use the button above to add your first record.</div>'}
 function renderAll(){let month=new Date().toISOString().slice(0,7),paid=records.payments.filter(x=>(x.date||'').startsWith(month)).reduce((s,x)=>s+(+x.amount||0),0);$('sTenants').textContent=records.tenants.length;$('sUnits').textContent=records.properties.length;$('sPaid').textContent=peso(paid);$('sDue').textContent=records.bills.filter(x=>x.status!=='Paid').length;
 $('recent').innerHTML=table(['Date','Tenant','Type','Amount'],records.payments.slice(-6).reverse().map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.tenantName||'—')}</td><td>${esc(x.type)}</td><td><b>${peso(x.amount)}</b></td></tr>`));
-$('tenantTable').innerHTML=table(['Tenant','Contact','Unit','Rent','Actions'],records.tenants.map(x=>`<tr><td><b>${esc(x.name)}</b></td><td>${esc(x.phone||'—')}</td><td>${esc(x.unit||'—')}</td><td>${peso(x.rent)}</td><td><div class="actions"><button class="secondary" onclick="editRecord('tenant','${x.id}')">Edit</button><button class="danger" onclick="removeRecord('tenants','${x.id}',event.currentTarget)">Delete</button></div></td></tr>`));
+$('tenantTable').innerHTML=records.tenants.length?`<div class="tablewrap"><table><thead><tr><th>Tenant</th><th>Contact</th><th>Unit</th><th>Rent</th><th>Actions</th></tr></thead><tbody>${records.tenants.map(x=>`<tr><td data-label="Tenant"><b>${esc(x.name)}</b></td><td data-label="Contact">${esc(x.phone||'—')}</td><td data-label="Unit">${esc(x.unit||'—')}</td><td data-label="Rent">${peso(x.rent)}</td><td data-label="Actions"><div class="actions"><button class="secondary" onclick="editRecord('tenant','${x.id}')">Edit</button><button class="danger" onclick="removeRecord('tenants','${x.id}',event.currentTarget)">Delete</button></div></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">No records yet. Use the button above to add your first record.</div>';
 $('propertyTable').innerHTML=table(['Property','Unit','Monthly rent','Status','Actions'],records.properties.map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.unit)}</td><td>${peso(x.rent)}</td><td><span class="badge ${x.status==='Available'?'':'warn'}">${esc(x.status)}</span></td><td><div class="actions"><button class="secondary" onclick="editRecord('property','${x.id}')">Edit</button><button class="danger" onclick="removeRecord('properties','${x.id}',event.currentTarget)">Delete</button></div></td></tr>`));
 $('billTable').innerHTML=table(['Tenant','Type','Period','Due','Amount','Status','Actions'],records.bills.map(x=>`<tr><td>${esc(x.tenantName||'—')}</td><td>${esc(x.type)}</td><td>${esc(x.period||'—')}</td><td>${esc(x.due||'—')}</td><td>${peso(x.amount)}</td><td><span class="badge ${x.status==='Paid'?'':'warn'}">${esc(x.status||'Unpaid')}</span></td><td><div class="actions"><button class="secondary" onclick="editRecord('bill','${x.id}')">Edit</button><button class="danger" onclick="removeRecord('bills','${x.id}',event.currentTarget)">Delete</button></div></td></tr>`));
 $('paymentTable').innerHTML=table(['Date','Tenant','Type','Period','Amount','Actions'],records.payments.map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.tenantName||'—')}</td><td>${esc(x.type)}</td><td>${esc(x.period||'—')}</td><td>${peso(x.amount)}</td><td><div class="actions"><button class="secondary" onclick="editRecord('payment','${x.id}')">Edit</button><button class="danger" onclick="removeRecord('payments','${x.id}',event.currentTarget)">Delete</button></div></td></tr>`));
