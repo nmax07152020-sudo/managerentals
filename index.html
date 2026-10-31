@@ -207,6 +207,24 @@ html[data-theme="dark"] .license-badge{background:#203b54;color:#b9dcff}
   <section id="page-settings" class="page hidden">
    <div class="pagehead"><div><h1>Settings & Theme</h1><div class="muted">Manage your business profile and personalize RentFlow</div></div><button id="profileSaveBtn" onclick="saveProfile()">Save changes</button></div>
    <div class="card"><h3 style="margin-top:0">Business Profile</h3><div class="formgrid"><div class="field"><label>Business name</label><input id="setBusiness"></div><div class="field"><label>Contact number</label><input id="setPhone"></div><div class="field"><label>Business address</label><input id="setAddress"></div><div class="field"><label>Contact email</label><input id="setEmail" disabled></div></div></div>
+   <div class="card" id="accountLicenseCard">
+    <div class="theme-head"><div><h3 style="margin:0">Account &amp; License</h3><div class="muted">View your device registration, free trial, and license activation.</div></div><span class="badge" id="settingsLicenseState">Checking...</span></div>
+    <div class="formgrid" style="margin-top:16px">
+     <div class="field"><label>Registered Device ID</label><div class="license-device"><code id="settingsDeviceId">Loading...</code><button type="button" class="secondary" onclick="copyDeviceId()">Copy ID</button></div></div>
+     <div class="field"><label>Free trial remaining</label><input id="settingsTrialRemaining" readonly value="Checking..."></div>
+     <div class="field"><label>Trial expiration</label><input id="settingsTrialExpiry" readonly value="—"></div>
+     <div class="field"><label>License expiration</label><input id="settingsLicenseExpiry" readonly value="—"></div>
+    </div>
+    <div class="divider" style="margin:16px 0"></div>
+    <h3 style="margin-top:0">Enter License Key</h3>
+    <p class="muted">If you received a license key by email, paste it below. The key is valid only for this account and registered device.</p>
+    <form id="settingsLicenseForm" class="formgrid">
+     <div class="field"><label for="settingsLicenseKey">License key</label><input id="settingsLicenseKey" name="licenseKey" placeholder="RF1-XXXXXXXXXXXXXXXXXXXX" autocomplete="off" required></div>
+     <div class="field" style="align-self:end"><button id="settingsActivateBtn" type="submit">Activate 1-Year License</button></div>
+    </form>
+    <div id="settingsLicenseError" style="color:#b93d4b;font-size:12px;margin-top:10px"></div>
+    <div class="muted" style="font-size:12px;margin-top:10px">One account = one registered device. Your rental records remain stored if the trial or license expires.</div>
+   </div>
    <div class="card theme-card"><div class="theme-head"><div><h3 style="margin:0">Appearance</h3><div class="muted">Choose Light or Dark mode. Your preference is saved on this device.</div></div><span class="theme-indicator" id="themeIndicator">Light mode</span></div>
     <div class="theme-options single"><div class="field"><label for="themeMode">Display mode</label><select id="themeMode" onchange="setThemeMode(this.value)"><option value="light">☀️ Light mode</option><option value="dark">🌙 Dark mode</option></select></div></div>
    </div>
@@ -235,10 +253,40 @@ const deviceId=getDeviceId();
 async function copyDeviceId(){try{await navigator.clipboard.writeText(deviceId);toast('Device ID copied')}catch(e){let t=document.createElement('textarea');t.value=deviceId;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();toast('Device ID copied')}}
 function showLicenseGate(license){$('auth').classList.add('hidden');$('app').classList.add('hidden');$('licenseGate').classList.remove('hidden');$('licenseDeviceId').textContent=deviceId;$('licenseError').textContent='';$('licenseKeyInput').value='';let msg='Your 7-day free trial has ended. Enter the license key provided by the RentFlow administrator to continue.';if(license?.state==='license_expired')msg='Your 1-year license has expired. Enter a renewed license key to restore access.';if(license?.state==='revoked')msg='This license has been revoked. Please contact the RentFlow administrator.';$('licenseGateMessage').textContent=msg}
 function updateLicenseBadge(license){let b=$('licenseStatusBadge');if(!b||!license)return;b.textContent=license.state==='trial'?`Free trial · ${license.trialDaysLeft} day${license.trialDaysLeft===1?'':'s'} left`:license.state==='active'?'1-year license active':'License required'}
+function formatLicenseDate(value){
+ if(!value)return '—';
+ const d=new Date(Number(value));
+ return Number.isNaN(d.getTime())?'—':d.toLocaleString('en-PH',{year:'numeric',month:'short',day:'numeric'});
+}
+function updateSettingsLicense(license){
+ if(!license)return;
+ const state=$('settingsLicenseState');
+ const labels={trial:'Free Trial',active:'License Active',expired:'License Required',license_expired:'License Expired',revoked:'Revoked'};
+ if(state)state.textContent=labels[license.state]||'License Required';
+ $('settingsDeviceId').textContent=license.deviceId||deviceId;
+ $('settingsTrialRemaining').value=license.state==='trial'?`${license.trialDaysLeft} day(s) remaining`:license.state==='active'?'Trial completed': 'Trial ended';
+ $('settingsTrialExpiry').value=formatLicenseDate(license.trialExpiry);
+ $('settingsLicenseExpiry').value=license.state==='active'?formatLicenseDate(license.licenseExpiry):'—';
+ updateLicenseBadge(license);
+}
+async function activateLicenseFromSettings(e){
+ e.preventDefault();
+ const btn=$('settingsActivateBtn'),done=buttonBusy(btn,'Activating...');
+ $('settingsLicenseError').textContent='';
+ try{
+  await api('activateLicense',{licenseKey:$('settingsLicenseKey').value.trim()});
+  $('settingsLicenseKey').value='';
+  toast('License activated successfully');
+  await enterApp();
+ }catch(err){$('settingsLicenseError').textContent=err.message;}
+ finally{done();}
+}
+
 async function api(action,data={}){let r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,token,deviceId,...data})});let j=await r.json();if(!r.ok||!j.ok)throw Error(j.error||'Request failed');return j}
 $('loginForm').onsubmit=async e=>{e.preventDefault();let f=Object.fromEntries(new FormData(e.target)),done=buttonBusy(e.submitter,'Signing in...');$('authError').textContent='';try{let r=await api('login',f);token=r.token;sessionStorage.setItem('rf_token',token);await enterApp()}catch(x){$('authError').textContent=x.message}finally{done()}};
 $('registerForm').onsubmit=async e=>{e.preventDefault();let f=Object.fromEntries(new FormData(e.target)),done=buttonBusy(e.submitter,'Creating account...');$('authError').textContent='';try{let r=await api('register',f);token=r.token;sessionStorage.setItem('rf_token',token);await enterApp()}catch(x){$('authError').textContent=x.message}finally{done()}};
-async function enterApp(){try{let r=await api('me');me=r.user;applyTheme();closeAuthMenu();if(r.license?.state!=='trial'&&r.license?.state!=='active'){showLicenseGate(r.license);return}$('licenseGate').classList.add('hidden');$('auth').classList.add('hidden');$('app').classList.remove('hidden');$('businessName').textContent=me.business||'RentFlow';$('userName').textContent=me.name;$('userAvatar').textContent=(me.name||'U').slice(0,1).toUpperCase();$('setBusiness').value=me.business||'';$('setPhone').value=me.phone||'';$('setAddress').value=me.address||'';$('setEmail').value=me.email||'';updateLicenseBadge(r.license);await loadAll()}catch(e){logout(false);if(e.message.includes('another device'))toast(e.message)}}
+async function enterApp(){try{let r=await api('me');me=r.user;applyTheme();updateSettingsLicense(r.license);closeAuthMenu();if(r.license?.state!=='trial'&&r.license?.state!=='active'){showLicenseGate(r.license);return}$('licenseGate').classList.add('hidden');$('auth').classList.add('hidden');$('app').classList.remove('hidden');$('businessName').textContent=me.business||'RentFlow';$('userName').textContent=me.name;$('userAvatar').textContent=(me.name||'U').slice(0,1).toUpperCase();$('setBusiness').value=me.business||'';$('setPhone').value=me.phone||'';$('setAddress').value=me.address||'';$('setEmail').value=me.email||'';updateLicenseBadge(r.license);await loadAll()}catch(e){logout(false);if(e.message.includes('another device'))toast(e.message)}}
+$('settingsLicenseForm').onsubmit=activateLicenseFromSettings;
 $('licenseForm').onsubmit=async e=>{e.preventDefault();let btn=e.submitter,done=buttonBusy(btn,'Activating license...');$('licenseError').textContent='';try{await api('activateLicense',{licenseKey:$('licenseKeyInput').value.trim()});toast('License activated successfully');await enterApp()}catch(x){$('licenseError').textContent=x.message}finally{done()}};
 async function loadAll(){let r=await api('list');records=r.records||records;renderAll()}
 function logout(show=true){token='';sessionStorage.removeItem('rf_token');$('app').classList.add('hidden');$('licenseGate').classList.add('hidden');$('auth').classList.remove('hidden');closeAuthMenu();switchAuth('login');if(show)toast('You have logged out')}
