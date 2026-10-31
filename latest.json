@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
-  "versionCode": 1,
-  "mandatory": false,
-  "releaseNotes": "RentFlow OTA initial setup"
+    "version":  "1.0.1",
+    "url":  "https://github.com/nmax07152020-sudo/managerentals/releases/download/ota-v1.0.1/ota-v1.0.1.zip",
+    "checksum":  "407f7d933bad08d3b1e2a5653352003aebcf5b954e391706ef1536a80ff0f83c",
+    "notes":  "updates"
 }
