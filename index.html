@@ -970,6 +970,17 @@ html[data-theme="dark"] .ios-guide-tip{background:#12382f;border-color:#245b4c;c
     <div id="settingsLicenseError" style="color:#b93d4b;font-size:12px;margin-top:10px"></div>
     <div class="muted" style="font-size:12px;margin-top:10px">One account = one registered device. Your rental records remain stored if the trial or license expires.</div>
    </div>
+   <div class="card" id="changePasswordCard">
+    <h3 style="margin-top:0">🔐 Change Password</h3>
+    <p class="muted">Update your account password securely. You must enter your current password first.</p>
+    <form id="changePasswordForm" class="formgrid" autocomplete="off">
+     <div class="field"><label for="currentPassword">Current password</label><input id="currentPassword" name="currentPassword" type="password" autocomplete="current-password" required></div>
+     <div class="field"><label for="newPassword">New password (at least 8 characters)</label><input id="newPassword" name="newPassword" type="password" minlength="8" autocomplete="new-password" required></div>
+     <div class="field"><label for="confirmNewPassword">Confirm new password</label><input id="confirmNewPassword" name="confirmNewPassword" type="password" minlength="8" autocomplete="new-password" required></div>
+     <div class="field" style="align-self:end"><button id="changePasswordBtn" type="submit">Update Password</button></div>
+    </form>
+    <div id="changePasswordMessage" class="muted" role="status" aria-live="polite" style="margin-top:10px"></div>
+   </div>
    <div class="card theme-card"><div class="theme-head"><div><h3 style="margin:0">Appearance</h3><div class="muted">Choose Light or Dark mode. Your preference is saved on this device.</div></div><span class="theme-indicator" id="themeIndicator">Light mode</span></div>
     <div class="theme-options single"><div class="field"><label for="themeMode">Display mode</label><select id="themeMode" onchange="setThemeMode(this.value)"><option value="light">☀️ Light mode</option><option value="dark">🌙 Dark mode</option></select></div></div>
    </div>
@@ -1032,6 +1043,26 @@ $('loginForm').onsubmit=async e=>{e.preventDefault();let f=Object.fromEntries(ne
 $('registerForm').onsubmit=async e=>{e.preventDefault();let f=Object.fromEntries(new FormData(e.target)),done=buttonBusy(e.submitter,'Creating account...');$('authError').textContent='';try{let r=await api('register',f);token=r.token;sessionStorage.setItem('rf_token',token);await enterApp()}catch(x){$('authError').textContent=x.message}finally{done()}};
 async function enterApp(){try{let r=await api('me');me=r.user;applyTheme();updateSettingsLicense(r.license);closeAuthMenu();if(r.license?.state!=='trial'&&r.license?.state!=='active'){showLicenseGate(r.license);return}$('licenseGate').classList.add('hidden');$('auth').classList.add('hidden');$('app').classList.remove('hidden');$('businessName').textContent=me.business||'RentFlow';$('userName').textContent=me.name;$('userAvatar').textContent=(me.name||'U').slice(0,1).toUpperCase();$('setBusiness').value=me.business||'';$('setPhone').value=me.phone||'';$('setAddress').value=me.address||'';$('setEmail').value=me.email||'';updateLicenseBadge(r.license);await loadAll()}catch(e){logout(false);if(e.message.includes('another device'))toast(e.message)}}
 $('settingsLicenseForm').onsubmit=activateLicenseFromSettings;
+$('changePasswordForm').onsubmit=async e=>{
+ e.preventDefault();
+ const form=e.currentTarget;
+ const currentPassword=$('currentPassword').value;
+ const newPassword=$('newPassword').value;
+ const confirmNewPassword=$('confirmNewPassword').value;
+ const message=$('changePasswordMessage');
+ message.textContent=''; message.style.color='';
+ if(newPassword.length<8){message.textContent='New password must be at least 8 characters.';message.style.color='#b93d4b';return;}
+ if(newPassword!==confirmNewPassword){message.textContent='New password and confirmation do not match.';message.style.color='#b93d4b';return;}
+ const done=buttonBusy($('changePasswordBtn'),'Updating password...');
+ try{
+  await api('changePassword',{currentPassword,newPassword});
+  form.reset();
+  message.textContent='Password changed successfully. Use your new password the next time you log in.';
+  message.style.color='#16834a';
+  toast('Password updated successfully');
+ }catch(err){message.textContent=err.message||'Could not update password.';message.style.color='#b93d4b';}
+ finally{done();}
+};
 $('licenseForm').onsubmit=async e=>{e.preventDefault();let btn=e.submitter,done=buttonBusy(btn,'Activating license...');$('licenseError').textContent='';try{await api('activateLicense',{licenseKey:$('licenseKeyInput').value.trim()});toast('License activated successfully');await enterApp()}catch(x){$('licenseError').textContent=x.message}finally{done()}};
 async function loadAll(){let r=await api('list');records=r.records||records;renderAll()}
 function logout(show=true){token='';sessionStorage.removeItem('rf_token');$('app').classList.add('hidden');$('licenseGate').classList.add('hidden');$('auth').classList.remove('hidden');closeAuthMenu();switchAuth('login');if(show)toast('You have logged out')}
