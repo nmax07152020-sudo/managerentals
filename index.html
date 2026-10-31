@@ -286,6 +286,26 @@ html,body{height:100%;overflow:hidden}
  .landing-contact-link{font-size:5.5px}
 }
 
+
+/* V2.3 pixel-clean landing details and sample-matched proportions */
+.feature-icon svg,.landing-info-icon svg,.landing-contact-link span svg{width:52%;height:52%;display:block}
+.landing-info-icon{color:#fff}
+.landing-contact-link span{color:#fff}
+.landing-info-card .license-device>span svg{width:21px;height:21px;display:block}
+.landing-info-card .license-device{box-shadow:0 4px 12px #092b4430}
+.landing-features{background:linear-gradient(100deg,#ffffff18,#ffffff12);border-color:#ffffff40}
+.landing-feature{min-height:54px}
+.landing-info-card{min-height:132px}
+.landing-info-card .landing-info-head{align-items:center}
+.landing-info-card .landing-checks{list-style:none}
+.landing-info-card .landing-contact-link{transition:background .15s,border-color .15s}
+.landing-info-card .landing-contact-link:hover{background:#ffffff2b;border-color:#ffffff55}
+@media(max-width:760px){
+ .landing-feature{min-height:42px}
+ .landing-info-card{min-height:0}
+ .feature-icon svg{width:58%;height:58%}
+}
+
 </style>
 </head>
 <body>
@@ -329,26 +349,26 @@ html,body{height:100%;overflow:hidden}
  </main>
  <section class="landing-extra" aria-label="RentFlow information">
   <div class="landing-features">
-   <div class="landing-feature"><span class="feature-icon">♟</span><div><b>Tenant Management</b><span>Keep track of tenants and their units.</span></div></div>
-   <div class="landing-feature"><span class="feature-icon">⌂</span><div><b>Property Management</b><span>Manage properties and rental units.</span></div></div>
-   <div class="landing-feature"><span class="feature-icon">▤</span><div><b>Bills &amp; Payments</b><span>Record bills, payments and history.</span></div></div>
-   <div class="landing-feature"><span class="feature-icon">▥</span><div><b>Reports &amp; Analytics</b><span>View income, occupancy and reports.</span></div></div>
-   <div class="landing-feature"><span class="feature-icon">▣</span><div><b>Ads / Listings</b><span>Post available units for rent.</span></div></div>
+   <div class="landing-feature"><span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 20c.4-4 2.4-6 6-6s5.6 2 6 6H6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><div><b>Tenant Management</b><span>Keep track of tenants and their units.</span></div></div>
+   <div class="landing-feature"><span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10h-6v-6H9v6H3V10Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><div><b>Property Management</b><span>Manage properties and rental units.</span></div></div>
+   <div class="landing-feature"><span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><div><b>Bills &amp; Payments</b><span>Record bills, payments and history.</span></div></div>
+   <div class="landing-feature"><span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V4M4 20h17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="7" y="12" width="3" height="6" rx="1" fill="currentColor"/><rect x="12" y="8" width="3" height="10" rx="1" fill="currentColor"/><rect x="17" y="5" width="3" height="13" rx="1" fill="currentColor"/></svg></span><div><b>Reports &amp; Analytics</b><span>View income, occupancy and reports.</span></div></div>
+   <div class="landing-feature"><span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m5 16 5-5 3 3 3-4 3 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Ads / Listings</b><span>Post available units for rent.</span></div></div>
   </div>
   <div class="landing-info">
    <article class="landing-info-card">
-    <div class="landing-info-head"><span class="landing-info-icon">◷</span><div><h3>7 Days Free Trial</h3><p>Try all RentFlow features for 7 days.</p></div></div>
+    <div class="landing-info-head"><span class="landing-info-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><div><h3>7 Days Free Trial</h3><p>Try all RentFlow features for 7 days.</p></div></div>
     <ul class="landing-checks"><li>Full access to all features</li><li>No credit card required</li><li>Easy account registration</li></ul>
    </article>
    <article class="landing-info-card">
-    <div class="landing-info-head"><span class="landing-info-icon landing-license-icon">⚿</span><div><h3>License Key Required</h3><p>After the free trial, you will need a valid license key to continue using RentFlow.</p></div></div>
-    <div class="license-device" style="background:#fff;border-color:#ffffff80;margin:12px 0 8px"><span style="font-size:20px;color:#51799b">⚿</span><code style="color:#7891a8">XXXX-XXXX-XXXX-XXXX</code></div>
+    <div class="landing-info-head"><span class="landing-info-icon landing-license-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="9" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m11 12 9 9m-4-5 2-2m-5-1 2-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><div><h3>License Key Required</h3><p>After the free trial, you will need a valid license key to continue using RentFlow.</p></div></div>
+    <div class="license-device" style="background:#fff;border-color:#ffffff80;margin:12px 0 8px"><span style="font-size:20px;color:#51799b"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="9" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m11 12 9 9m-4-5 2-2m-5-1 2-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><code style="color:#7891a8">XXXX-XXXX-XXXX-XXXX</code></div>
     <p style="font-size:11px">Enter your license key in Settings to activate a 1-year license.</p>
    </article>
    <article class="landing-info-card">
-    <div class="landing-info-head"><span class="landing-info-icon landing-contact-icon">☎</span><div><h3>Contact Us</h3><p>For license inquiries, technical support or assistance, contact us:</p></div></div>
-    <a class="landing-contact-link" href="mailto:winalincastrern@gmail.com"><span>✉</span>winalincastrern@gmail.com</a>
-    <a class="landing-contact-link" href="tel:09762597403"><span>☎</span>09762597403</a>
+    <div class="landing-info-head"><span class="landing-info-icon landing-contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h3l2 5-2 2a15 15 0 0 0 5 5l2-2 5 2v3c0 1.1-.9 2-2 2C10 20 4 14 4 5c0-1.1.9-2 2-2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><div><h3>Contact Us</h3><p>For license inquiries, technical support or assistance, contact us:</p></div></div>
+    <a class="landing-contact-link" href="mailto:winalincastrern@gmail.com"><span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>winalincastrern@gmail.com</a>
+    <a class="landing-contact-link" href="tel:09762597403"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h3l2 5-2 2a15 15 0 0 0 5 5l2-2 5 2v3c0 1.1-.9 2-2 2C10 20 4 14 4 5c0-1.1.9-2 2-2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span>09762597403</a>
    </article>
   </div>
  </section>
